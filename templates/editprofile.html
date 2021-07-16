@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %} book {% endblock title %}
+
+
+{% block body %}
+
+<div class="conatiner">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <form action ="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if status %}
+        <div class="alert alert-primary">{{status}}</div>
+        {% endif %}
+        
+        <div class="form-group">
+          <div class ="row">
+
+            <div class="col-md-6">
+              <label>uasername</label>
+              <input type="text" class= "form-control" name="uname" placeholder="enter user name" value="{{user.username}}">
+
+              
+            </div>
+            <div class="col-md-6">
+              <label>first name</label>
+              <input type="text" class= "form-control" name="fname" placeholder="enter firt name" value="{{user.first_name}}">
+
+              
+            </div>
+            <div class="col-md-6">
+              <label>last name</label>
+              <input type="text" class= "form-control" name="lname" placeholder="enter last name" value="{{user.last_name}}">
+
+              
+            </div>
+
+            <div class="col-md-6">
+              <label>email</label>
+              <input type="email" class= "form-control" name="email" placeholder="enter email" value="{{user.email}}">
+
+              
+            </div>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" name="change profile" value="save chnages " class="btn btn-primary " style="width: 50%;border-radius:20px;">
+
+            </div>
+            </form>
+          </div>
+        </div>
+      </form>
+    </div>
+   
+  </div>
+</div>
+{% endblock body %}

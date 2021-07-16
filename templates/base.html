@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+  <title> {% block title %} {% endblock title %} forms 
+  </title>
+  
+</head>
+
+<body>
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">  ≡</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="">HOMEPAGE </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/editprofile">EDIT PROFILE </a>
+          </li>
+ 
+
+
+
+
+        </ul>
+        <form method="get"action ="/search" class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+        <li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            welcome {{request.user}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+             <li><a class="dropdown-item" href="/profile">profile</a></li>
+          </ul>
+ 
+        </li>
+        </li>
+        </ul>  
+        
+         {% else %}
+        <!-- Button to singhup  modal -->
+        <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#signupmodal">
+          signup
+        </button>
+        <!-- Button to login  modal -->
+        <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#loginmodal">
+          login
+        </button>
+       
+        
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+ {% for message in messages %}             
+ <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>Message:</strong> {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ 
+</div> 
+{% endfor %}
+
+
+  <!-- signup Modal -->
+  <div class="modal fade" id="signupmodal" tabindex="-1" aria-labelledby="signupmodal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signupmodal">signup to </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action='/signup' method='post'>
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="(insert unique alphanumeric username )"  required>
+            </div>
+            <div class="mb-3">
+              <label for="fname" class="form-label">firstname</label>
+              <input type="text" class="form-control" id="fname" name="fname" placeholder="firstNAME" required>
+            </div>
+            <div class="mb-3">
+              <label for="lname" class="form-label">lasttname</label>
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="lastNAME"  required>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="ADD" class="form-label">ADD</label>
+              <input type="text" class="form-control" id="ADD" name="ADD" placeholder="ADDRESS"  required>
+            </div>
+
+            <div class="mb-3">
+              <label for="password1" class="form-label">PASSWORD1</label>
+              <input type="password" class="validation" id="password1" name="password1" placeholder="password1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="password2" class="form-label">PASSWORD2</label>
+              <input type="password" class="validation" id="password2" name="password2" placeholder="password2" required>
+            </div>
+            
+             {% csrf_token %} 
+
+
+
+             <button type="submit" class="btn btn-primary">signup</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginmodal" tabindex="-1" aria-labelledby="loginmodal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginmodal">Login to </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action='/login' method='post'>
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="USERNAME">
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="password" class="form-label">PASSWORD</label>
+              <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="password">
+            </div>
+            <input type="checkbox" onclick="myFunction()"> Show Password
+
+       {% csrf_token %} 
+
+
+
+            <br> <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% block body %}{% endblock body %}
+  <div class="container">
+    <!-- Footer -->
+    <footer class="page-footer font-small stylish-color-dark pt-4">
+
+      <!-- Footer Links -->
+      <div class="container text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-4 mx-auto">
+
+            <!-- Content -->
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Footer Content</h5>
+            <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
+              consectetur
+              adipisicing elit.</p>
+
+          </div>
+          <!-- Grid column -->
+
+          <hr class="clearfix w-100 d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-2 mx-auto">
+
+           
+
+          </div>
+          <!-- Grid column -->
+
+          <hr class="clearfix w-100 d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-2 mx-auto">
+
+            <!-- Links -->
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4"> HOMEPAGE</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="">HOME PAGE</a>
+              </li>
+             
+          <!-- Grid column -->
+
+          <hr class="clearfix w-100 d-md-none">
+
+          <!-- Grid column -->
+          <div class="col-md-2 mx-auto">
+
+
+
+
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+      <!-- Footer Links -->
+
+      <hr>
+
+      <!-- Call to action -->
+      <ul class="list-unstyled list-inline text-center py-2">
+        <li class="list-inline-item">
+          <h5 class="mb-1">Register for free</h5>
+        </li>
+        <li class="list-inline-item">
+          <a href='/signup'class="btn btn-danger btn-rounded">Sign up!</a>
+        </li>
+      </ul>
+      <!-- Call to action -->
+
+      <hr>
+
+      <!-- Social buttons -->
+      <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+          <a class="btn-floating btn-fb mx-1">
+            <i class="fab fa-facebook-f"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-tw mx-1">
+            <i class="fab fa-twitter"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-gplus mx-1">
+            <i class="fab fa-google-plus-g"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-li mx-1">
+            <i class="fab fa-linkedin-in"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-dribbble mx-1">
+            <i class="fab fa-dribbble"> </i>
+          </a>
+        </li>
+      </ul>
+      <!-- Social buttons -->
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="/"></a>
+      </div>
+      <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+  </div>
+  
+ 
+
+ {% comment %} password toggle for login modal  {% endcomment %}
+    <script>
+      function myFunction() {
+        var x = document.getElementById("loginpassword");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+      </script>
+    
+</body>
+
+</html>
